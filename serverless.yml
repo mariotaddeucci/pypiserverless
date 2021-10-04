@@ -1,0 +1,42 @@
+service: pypiserverless
+
+frameworkVersion: "2"
+
+package:
+  patterns:
+    - '!**'
+    - pypiserverless/**.py
+
+provider:
+  name: aws
+  runtime: python3.7
+  lambdaHashingVersion: 20201221
+  region: us-east-1
+  deploymentBucket:
+    name: pypiserverless-packages
+  memorySize: 128
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - s3:ListBucket
+      Resource:
+        - "arn:aws:s3:::pypiserverless-packages"
+    - Effect: Allow
+      Action:
+        - s3:GetObject
+      Resource:
+        - "arn:aws:s3:::pypiserverless-packages/packages/*"
+
+functions:
+  pypiserver:
+    handler: pypiserverless.handler
+    environment:
+      PACKAGES_BUCKET: pypiserverless-packages
+      PACKAGES_PATH: packages
+    events:
+      - http:
+          path: /
+          method: GET
+      - http:
+          path: /{proxy+}
+          method: GET
