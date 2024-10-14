@@ -1,23 +1,23 @@
 repos:
 -   repo: https://github.com/pycqa/isort
-    rev: 5.9.3
+    rev: 5.13.2
     hooks:
     -   id: isort
         args: [--profile, black]
 
 -   repo: https://github.com/psf/black
-    rev: 21.9b0
+    rev: 24.10.0
     hooks:
     -   id: black
         args: [--line-length=120]
 
 -   repo: https://github.com/ikamensh/flynt/
-    rev: '0.69'
+    rev: '1.0.1'
     hooks:
     -   id: flynt
 
 -   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.0.1
+    rev: v5.0.0
     hooks:
     -   id: trailing-whitespace
         exclude: ^airflow/dags/(tables|factory|queries)/
@@ -33,12 +33,12 @@ repos:
         exclude: ^(|airflow/)cloudformation/
 
 -   repo: https://github.com/PyCQA/flake8
-    rev: 4.0.1
+    rev: 7.1.1
     hooks:
     -   id: flake8
 
 -   repo: https://github.com/codespell-project/codespell
-    rev: v2.1.0
+    rev: v2.3.0
     hooks:
     -   id: codespell
         description: Checks for common misspellings in text files.
